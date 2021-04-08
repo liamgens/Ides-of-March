@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Caesar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private HealthBar health;
+
+    void Start() 
     {
-        
+        health.setFullHealth();
     }
 
-    // Update is called once per frame
     void Update()
     {
         handleMovement();
@@ -42,4 +42,12 @@ public class Caesar : MonoBehaviour
         }
         transform.position += new Vector3(moveX, moveY).normalized * speed * Time.deltaTime;
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        health.takeHit();
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+        health.takeHit();
+     }
 }
