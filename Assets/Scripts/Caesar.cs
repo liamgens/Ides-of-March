@@ -13,6 +13,11 @@ public class Caesar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        handleMovement();
+    }
+
+    void handleMovement()
+    {
         float moveX = 0f;
         float moveY = 0f;
         float speed = 10f;
@@ -35,6 +40,6 @@ public class Caesar : MonoBehaviour
         {
             moveX = 1f;
         }
-        transform.position += new Vector3(moveX, moveY) * speed * Time.deltaTime;
+        transform.position += new Vector3(moveX, moveY).normalized * speed * Time.deltaTime;
     }
 }
