@@ -6,6 +6,7 @@ public class HealthBar : MonoBehaviour
 {
 
     public Transform bar;
+    public GameOverScreen gameOverScreen;
 
     public void setFullHealth()
     {
@@ -15,5 +16,9 @@ public class HealthBar : MonoBehaviour
     public void takeHit()
     {
         bar.localScale = new Vector3(bar.localScale.x - 0.025f, 1f);
+
+        if (bar.localScale.x <= 0) {
+            gameOverScreen.Setup();
+        }
     }
 }
