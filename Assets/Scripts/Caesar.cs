@@ -22,6 +22,11 @@ public class Caesar : MonoBehaviour
         handleMovement();
         bool moving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
         anim.SetBool("isRunning", moving);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            anim.SetTrigger("attack");
+        }
     }
 
     void handleMovement()
@@ -54,10 +59,15 @@ public class Caesar : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
+        anim.SetBool("isHit", true);
         health.takeHit();
     }
 
     private void OnCollisionStay2D(Collision2D other) {
         health.takeHit();
-     }
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        anim.SetBool("isHit", false);
+    }
 }
