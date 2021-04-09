@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class Caesar : MonoBehaviour
 {
+
+    private Animator anim;
+    private SpriteRenderer sr;
+
     [SerializeField] private HealthBar health;
 
     void Start() 
     {
+        anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
         health.setFullHealth();
     }
 
     void Update()
     {
         handleMovement();
+        bool moving = Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0;
+        anim.SetBool("isRunning", moving);
     }
 
     void handleMovement()
@@ -29,6 +37,7 @@ public class Caesar : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             moveX = -1f;
+            sr.flipX = true;
         }
         
         if (Input.GetKey(KeyCode.S))
@@ -39,6 +48,7 @@ public class Caesar : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             moveX = 1f;
+            sr.flipX = false;
         }
         transform.position += new Vector3(moveX, moveY).normalized * speed * Time.deltaTime;
     }
